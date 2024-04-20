@@ -8,22 +8,16 @@ cwd = os.getcwd()
 #question 11,
 # When the volatility increases, the call option price will also increase. However, the call option price is capped by
 # the current stock price, because PV_call = E[max(S_T - K)]
-# So the answer is the call option price is the current stock price when the volatility is infinity.
+# So the answer is: the call option price is the current stock price when the volatility is infinity.
 # I also buiit a simple Black-Scholes call option price function which verified my answer
 
 def BS_call(S, K, T, r, v):
     """
-    Parameters:
-    S : float
-        Current stock price
-    K : float
-        Strike price
-    T : float
-        Time to maturity
-    r : float
-        Constat Risk-free interest rate
-    v : float
-        Constat Volatility of the underlying stock
+    S : Current stock price
+    K : Strike price
+    T : Time to maturity
+    r : Constat Risk-free interest rate
+    v : Constat Volatility of the underlying stock
     """
     # Calculate d1 and d2
     d1 = (np.log(S / K) + (r + 0.5 * v ** 2) * T) / (v * np.sqrt(T))
@@ -46,6 +40,7 @@ for v in volatility_list:
     call_price_list.append(call_price)
 
 
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # question 12
 
@@ -80,9 +75,50 @@ log_return_np = np.array(log_return)
 
 # calculate the standard deviation of sp500
 
-volatility = np.std(log_return_np)
+sp500_volatility = np.std(log_return_np)
 
 
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# question 14
+# The delta of a put option on ETF SPY is always negative, the delta will increase and move asymptotically to 0.
+
+
+# The put option is to hedge the portfolio value when the ETF SPY index changes.
+
+# Instead of holding the put option (in this case we need to pay put option premium). We could also use Delta hedging.
+# The strategy is dynamically short the Delta(ETF SPY index) number of ETF SPY stock,
+# The change in portfolio and the change in the ETF SPY stock position will perfectly cancel out each other.
+
+
+# I also buiit a simple Black-Scholes put option delta value function which verified show the relation between stock price and delta value
+
+def BS_Put_Delta(S, K, T, r, v):
+    """
+     S : Current stock price
+     K : Strike price
+     T : Time to maturity
+     r : Constat Risk-free interest rate
+     v : Constat Volatility of the underlying stock
+     """
+    # Calculate d1 and d2
+    d1 = (np.log(S / K) + (r + 0.5 * v ** 2) * T) / (v * np.sqrt(T))
+    d2 = d1 - v * np.sqrt(T)
+
+    # Calculate put option delta
+    put_delta = - np.exp(-r * T) * norm.cdf(-d1)
+    return put_delta
+
+Stock_Price_list = [100, 110, 120, 130, 150, 200, 300, 400, 500]
+K = 100
+T =1
+r= 0.05
+v = 0.1
+call_price_list =[]
+put_delta_list = []
+for S in Stock_Price_list:
+    put_delta = BS_Put_Delta(S, K, T, r, v)
+    put_delta_list .append(put_delta)
 
 
 

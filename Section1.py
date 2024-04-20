@@ -21,6 +21,8 @@ Y = X * correlation_target + Y_temp * np.sqrt(1 - correlation_target**2)
 # Verify the correlation
 correlation = np.corrcoef(X, Y)
 
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 # question 2, I find some of the data can not be download from yahoo finance, so I download the data from MarketWatch.
 # since the historical data download is limited one year on MarketWatch for me. I used historical data from 2022-12-29 to 2023-12-29
 
@@ -81,8 +83,9 @@ SP500_modified = transformed_data[1]
 new_correlation_matrix = np.corrcoef(transformed_data)
 
 
-# question 3, extend the above analysis to 4 dimension. I downloaded the NASDAQ inedx and Gold future price as input data
 
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------
+# question 3, extend the above analysis to 4 dimension. I downloaded the NASDAQ inedx and Gold future price as input data
 
 NASDAQ_file = cwd + "//input_data//NASDAQ.csv"
 Gold_file = cwd + "//input_data//Gold.csv"
