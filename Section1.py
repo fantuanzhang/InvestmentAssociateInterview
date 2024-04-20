@@ -5,7 +5,7 @@ import os
 import csv
 import pandas as pd
 cwd = os.getcwd()
-# Section 1
+
 # question 1
 np.random.seed(1)
 
@@ -21,7 +21,8 @@ Y = X * correlation_target + Y_temp * np.sqrt(1 - correlation_target**2)
 # Verify the correlation
 correlation = np.corrcoef(X, Y)
 
-# question 2, I have do
+# question 2, I find some of the data can not be download from yahoo finance, so I download the data from MarketWatch.
+# since the historical data download is limited one year on MarketWatch for me. I used historical data from 2022-12-29 to 2023-12-29
 
 USDCADFX_file = cwd + "//input_data//CADUSDFX.csv"
 SP500_file = cwd + "//input_data//SP500.csv"
